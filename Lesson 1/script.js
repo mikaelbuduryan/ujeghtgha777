@@ -78,13 +78,13 @@ function draw() {
         grassArr[i].mul()
     }
     for (let i = 0; i < grassEaterArr.length; i++) {
-        grassEaterArr[i].eat()            
+        grassEaterArr[i].eat()
     }
     for (let i = 0; i < predatorArr.length; i++) {
         predatorArr[i].eat()
     }
     for (let i = 0; i < rabbitArr.length; i++) {
-        rabbitArr[i].eat()     
+        rabbitArr[i].eat()
     }
     for (let i = 0; i < dragonArr.length; i++) {
         dragonArr[i].eat()
