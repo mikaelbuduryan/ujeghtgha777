@@ -1,9 +1,16 @@
-var matrix = [
-    [0, 0, 1, 5],
-    [1, 0, 2, 0],
-    [4, 1, 0, 3],
-    [0, 3, 1, 0]
-];
+const numRows = 10;
+const numCols = 10;
+
+const matrix = new Array(numRows).fill(0).map(() => new Array(numCols).fill(0));
+
+for (let i = 0; i < numRows; i++) {
+  for (let j = 0; j < numCols; j++) {
+    matrix[i][j] = Math.floor(Math.random() * 7);
+  }
+}
+
+
+console.log(matrix);
 
 
 var side = 120;
@@ -12,7 +19,7 @@ let grassEaterArr = [];
 let predatorArr = [];
 let rabbitArr = [];
 let dragonArr = [];
-
+let humanArr = [];
 
 
 
@@ -40,6 +47,10 @@ function setup() {
             else if (matrix[y][x] === 5) {
                 let dragon = new Dragon(x,y);
                 dragonArr.push(dragon)
+            }
+            else if (matrix[y][x] === 6) {
+                let human = new Human(x,y);
+                humanArr.push(human)
             }
         }
 
@@ -70,6 +81,9 @@ function draw() {
             else if (matrix[y][x] == 5) {
                 fill("blue");
             }
+            else if (matrix[y][x] == 6) {
+                fill("tan");
+            }
 
             rect(x * side, y * side, side, side);
         }
@@ -88,5 +102,8 @@ function draw() {
     }
     for (let i = 0; i < dragonArr.length; i++) {
         dragonArr[i].eat()
+    }
+    for (let i = 0; i < humanArr.length; i++) {
+        humanArr[i].move()
     }
 }
