@@ -1,3 +1,17 @@
+//If gender = false ,it's a female
+//If gender = true ,it's a male
+
+//frameRate(1);
+var game = true
+function toggleFrameRate() {
+    game = !game
+    console.log(game)
+    if(!game)
+        noLoop()
+    else
+        loop()
+  }
+
 const numRows = 10;
 const numCols = 10;
 
@@ -20,11 +34,14 @@ let predatorArr = [];
 let rabbitArr = [];
 let dragonArr = [];
 let humanArr = [];
-
+let humanMult = 0;
+let humanCount = 0
 
 
 function setup() {
     frameRate(1);
+    
+    
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
     for (let y = 0; y < matrix.length; y++) {
@@ -50,6 +67,11 @@ function setup() {
             }
             else if (matrix[y][x] === 6) {
                 let human = new Human(x,y);
+                if(human.gender)
+                    humanMult++
+                else
+                    humanMult--
+                humanCount++
                 humanArr.push(human)
             }
         }
@@ -105,5 +127,13 @@ function draw() {
     }
     for (let i = 0; i < humanArr.length; i++) {
         humanArr[i].move()
+        // if(frameCount < 31)
+        //     humanArr[i].mul((humanCount-humanMult)/2)
+
     }
 }
+
+
+
+
+

@@ -4,8 +4,17 @@ class Human {
         this.y = y;
         this.multiply = 0;
         this.energy = 10;
+        this.gender = this.getGender();
         this.directions = [];
         this.getNewCoordinates();
+    }
+
+    getGender(){
+        let gender = Math.floor(Math.random()*2)
+        if(gender)
+            return true
+        else
+            return false
     }
 
     getNewCoordinates() {
@@ -33,16 +42,24 @@ class Human {
         return found;
     }
 
-   
+
  
-    mul() {
+    mul(number) {
         this.multiply++;
-        let found = this.chooseCell(6);
+
+        let found = random(this.chooseCell(6));
         if (found) {
-            let x = emptyCell[0];
-            let y = emptyCell[1];
+            let x = found[0];
+            let y = found[1];
             matrix[y][x] = 1;
-            humanArr.push(new Human(x, y));
+            var newHuman = new Human(x, y)
+            humanArr.push(newHuman);
+            if(newHuman.gender){
+            humanMult++
+            }
+            else{
+            humanMult--
+            }
             this.multiply = 0;
             this.energy++;
             let human = new Human(x, y);
@@ -69,10 +86,24 @@ class Human {
             this.energy--;
            
         }
+        else {
+            this.energy--;
+            this.die();
+        }
 
     }
+
+
+    die(){
+        for (let i in humanArr) {
+            if (humanArr[i].x === this.x && humanArr[i].y === this.y) {
+                humanArr.splice(i, 1);
+                break;
+            }
+        }
+        matrix[this.y][this.x] = 0;
+    }
+
 }
 
-setTimeout(() => {
-      mull();  
-}, 1000);
+
