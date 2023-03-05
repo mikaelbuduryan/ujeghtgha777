@@ -3,7 +3,7 @@ class Human {
         this.x = x;
         this.y = y;
         this.multiply = 0;
-        this.energy = 10;
+        this.energy = 2;
         this.gender = this.getGender();
         this.directions = [];
         this.getNewCoordinates();

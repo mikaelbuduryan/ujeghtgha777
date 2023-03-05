@@ -1,48 +1,56 @@
 //If gender = false ,it's a female
 //If gender = true ,it's a male
-
-//frameRate(1);
-var game = true
-function toggleFrameRate() {
-    game = !game
-    console.log(game)
-    if(!game)
-        noLoop()
-    else
-        loop()
-  }
-
-const numRows = 10;
-const numCols = 10;
-
-const matrix = new Array(numRows).fill(0).map(() => new Array(numCols).fill(0));
-
-for (let i = 0; i < numRows; i++) {
-  for (let j = 0; j < numCols; j++) {
-    matrix[i][j] = Math.floor(Math.random() * 7);
-  }
-}
+//Only humans have genders
 
 
-console.log(matrix);
+const weather = new Weather();
+var game = false
+var winter = false
+var matrix=[] ;
+var numRows = 10;
+var numCols = 10;
 
 
 var side = 120;
-let grassArr = [];
-let grassEaterArr = [];
-let predatorArr = [];
-let rabbitArr = [];
-let dragonArr = [];
-let humanArr = [];
-let humanMult = 0;
-let humanCount = 0
+var grassArr = [];
+var grassEaterArr = [];
+var predatorArr = [];
+var rabbitArr = [];
+var dragonArr = [];
+var humanArr = [];
+var humanMult = 0;
+var humanCount = 0;
 
+
+
+function toggleFrameRate() {
+    game = !game
+    if(!game){
+        noLoop()
+    }
+    else {
+        loop()
+    }
+}
+
+function WeatherChange() {
+   weather.change();
+}
 
 function setup() {
     frameRate(1);
     
-    
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    toggleFrameRate()
+
+    for (let i = 0; i < numRows; i++) {
+        var row=[];
+        for (let j = 0; j < numCols; j++) {
+          row.push(Math.floor(Math.random() * 7)) 
+        }
+
+        matrix.push(row)
+      }
+    createCanvas(matrix.length * side, matrix[0].length * side);
     background('#acacac');
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
@@ -82,11 +90,16 @@ function setup() {
 
 function draw() {
 
+   
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
             if (matrix[y][x] == 1) {
-                fill("green");
+                if(weather.currentCondition == 'sunny')
+                    fill("green");
+                else
+                    fill('white')
             }
             else if (matrix[y][x] == 0) {
                 fill("#acacac");
@@ -105,13 +118,38 @@ function draw() {
             }
             else if (matrix[y][x] == 6) {
                 fill("tan");
-            }
 
+            }
             rect(x * side, y * side, side, side);
+
+            if (round(random(5)) < 1) {      
+                {
+                    matrix[y][x] = 7;
+                    rect(x * side, y * side, side, side);
+                    
+                }
+            
+
+
+            
+
+
+            }
         }
     }
+
+
+  
+
     for (let i = 0; i < grassArr.length; i++) {
-        grassArr[i].mul()
+        if(weather.currentCondition === "snowy"){
+            if(frameCount % 2 == 0)
+            grassArr[i].mul()
+
+        }
+        else if (frameCount % 2 == 0){
+            grassArr[i].mul()
+        }
     }
     for (let i = 0; i < grassEaterArr.length; i++) {
         grassEaterArr[i].eat()
@@ -127,13 +165,8 @@ function draw() {
     }
     for (let i = 0; i < humanArr.length; i++) {
         humanArr[i].move()
-        // if(frameCount < 31)
-        //     humanArr[i].mul((humanCount-humanMult)/2)
-
     }
+
 }
-
-
-
 
 

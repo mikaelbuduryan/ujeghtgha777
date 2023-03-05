@@ -2,7 +2,7 @@ class Predator {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.energy = 8;
+        this.energy = 10;
 
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -29,14 +29,14 @@ class Predator {
     }
 
 
-    chooseCell(character, character1,ch) {
+    chooseCell( character1,ch) {
         let found = [];
         this.getNewCoordinates();
         for (let i = 0; i < this.directions.length; i++) {
             let x = this.directions[i][0];
             let y = this.directions[i][1];
             if (x >= 0 && y >= 0 && x < matrix[0].length && y < matrix.length) {
-                if (matrix[y][x] === character1 || matrix[y][x] === character || matrix[y][x] === ch) {
+                if (matrix[y][x] === character1 ||  matrix[y][x] === ch) {
                     found.push(this.directions[i])
                 }
 
@@ -47,20 +47,13 @@ class Predator {
 
     }
     eat() {
-        let found = this.chooseCell(1, 2);
+        let found = this.chooseCell(2);
         let emptyCell = random(found);
         if (emptyCell) {
             this.energy += 2;
             let x = emptyCell[0];
             let y = emptyCell[1];
 
-            for (let i in grassArr) {
-                if (x == grassArr[i].x && y == grassArr[i].y) {
-                    grassArr.splice(i, 1);
-                    break;
-                }
-
-            }
             for (let i in grassEaterArr) {
                 if (x == grassEaterArr[i].x && y == grassEaterArr[i].y) {
                     grassEaterArr.splice(i, 1);

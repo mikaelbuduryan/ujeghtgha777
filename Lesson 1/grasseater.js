@@ -2,29 +2,22 @@ class GrassEater {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.energy = 8;
+        this.energy = 10;
 
         this.directions = [
-            [this.x - 1, this.y - 1],
+
             [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
             [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
+            [this.x + 1, this.y],     
+            [this.x, this.y + 1]
         ];
     }
     getNewCoordinates() {
         this.directions = [
-            [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
             [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
+            [this.x + 1, this.y],     
+            [this.x, this.y + 1]
         ];
     }
 
@@ -92,6 +85,7 @@ class GrassEater {
                 this.die();
             }
         }
+        
         else {
             this.energy--;
             this.die();

@@ -2,7 +2,7 @@ class Grass {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.multiply = 0;
+        this.multiply = 2;
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -33,15 +33,25 @@ class Grass {
         this.multiply++;
         let found = this.chooseCell();
         let emptyCell = random(found);
+
         if (emptyCell && this.multiply > 4) {
             let x = emptyCell[0];
             let y = emptyCell[1];
             matrix[y][x] = 1;
             grassArr.push(new Grass(x, y))
+            grassArr.push(new Grass(x+1, y))
             this.multiply = 0;
         }
     }
 
+    show() {
+        if (weather.currentCondition === "snowy") {
+          fill("white");
+        } else {
+          fill("green");
+        }
+        rect(this.x * side, this.y * side, side, side);
+      }
 
 
 
