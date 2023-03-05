@@ -89,7 +89,18 @@ function setup() {
 }
 
 function draw() {
-
+    if (frameCount % 12 == 0){
+        data = {
+            "frameCount":Math.round(frameCount/60),
+            "grass": grassArr.length,
+            "grassEater": grassEaterArr.length,
+            "predator": predatorArr.length,
+            "rabbit": rabbitArr.length,
+            "dragon": dragonArr.length,
+            "human": humanArr.length
+        }
+        socket.emit('send data',(data));
+    }
    
 
     for (var y = 0; y < matrix.length; y++) {
